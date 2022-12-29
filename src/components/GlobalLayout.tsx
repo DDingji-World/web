@@ -7,7 +7,7 @@ interface GlobalLayoutProps{
 }
 
 const GlobalBody = styled.div`
-  background-color: #002967;
+  background-color: ${({ theme }) => theme.color.main};
   position: relative;
   width: 500px;
   height: 100vh;
@@ -18,7 +18,7 @@ const GlobalBody = styled.div`
   }
 `
 const GlobalBackground = styled.div`
-  background-color: black;
+  background-color: ${({ theme }) => theme.color.background};
   width: 100%;
 `
 export default function GlobalLayout({children}:GlobalLayoutProps) : JSX.Element{
