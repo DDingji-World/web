@@ -12,16 +12,16 @@ import GlobalLayout from "./components/GlobalLayout";
 function App() {
   return (
     <Provider store={store}>
-      <BrowserRouter
-      // basename={process.env.PUBLIC_URL}
-      >
-        <Routes>
-          <Route path="/" element={<GlobalLayout children={<Main />}/>} />
-          <Route path="/random-selection-card" element={<RandomSelectionCard />} />
-          <Route path="/restaurant/list" element={<RestaurantList />} />
-          <Route path="/restaurant/:id" element={<RestaurantInfo />} />
-        </Routes>
-      </BrowserRouter>
+        <GlobalLayout>
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Main />} />
+                    <Route path="/random-selection-card" element={<RandomSelectionCard />} />
+                    <Route path="/restaurant/list" element={<RestaurantList />} />
+                    <Route path="/restaurant/:id" element={<RestaurantInfo />} />
+                </Routes>
+            </BrowserRouter>
+    </GlobalLayout>
     </Provider>
   )
 }
