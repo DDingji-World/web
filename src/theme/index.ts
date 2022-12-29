@@ -13,7 +13,7 @@ const border = {
 }
 const font = {
     cute : "'Cute Font', cursive",
-    dongle : "Dongle', sans-serif",
+    dongle : "'Dongle', sans-serif",
     single : "Single Day', cursive"
 }
 
