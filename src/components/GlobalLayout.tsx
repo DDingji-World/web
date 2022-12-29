@@ -10,7 +10,8 @@ const GlobalBody = styled.div`
   background-color: ${({ theme }) => theme.color.main};
   position: relative;
   width: 500px;
-  height: 100vh;
+  height: 100%;
+  min-height: 100vh;
   margin: 0 auto;
   
   @media (max-width:500px){
