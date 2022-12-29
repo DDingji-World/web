@@ -15,16 +15,18 @@ function App() {
   return (
     <Provider store={store}>
         <ThemeProvider theme={theme}>
-      <BrowserRouter
+            <GlobalLayout>
+                <BrowserRouter
       // basename={process.env.PUBLIC_URL}
       >
         <Routes>
-          <Route path="/" element={<GlobalLayout children={<Main />}/>} />
+          <Route path="/" element={<Main />}/>
           <Route path="/random-selection-card" element={<RandomSelectionCard />} />
           <Route path="/restaurant/list" element={<RestaurantList />} />
           <Route path="/restaurant/:id" element={<RestaurantInfo />} />
         </Routes>
       </BrowserRouter>
+            </GlobalLayout>
         </ThemeProvider>
     </Provider>
   )
