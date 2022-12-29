@@ -17,6 +17,10 @@ const NavBar = styled.div`
   @media (max-width: 500px) {
     width: 100%;
   }
+  @media(max-height: 800px){
+    margin-top: 47px;
+    position: static;
+  }
 `
 
 interface ButtonProps {

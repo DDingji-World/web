@@ -1,4 +1,8 @@
 import styled from "styled-components";
+import {useNavigate} from "react-router-dom";
+import {useModeSelector} from "../store/mode";
+import {useDispatch} from "react-redux";
+import {categorySlice} from "../store/category";
 
 const SelectArea = styled.div`
   width: 95%;
@@ -110,25 +114,34 @@ const CategoryBlock = styled.div`
   }
 `
 
+export default function CategoryArea():JSX.Element{
+    const navigate = useNavigate();
+    const mode = useModeSelector();
+    const dispatch = useDispatch();
 
-export default function CategoryArea() {
+    const navigateToNextPage = (event:any) => {
+        const url = mode ? "/random-selection-card" : "/restaurant/list";
+        dispatch(categorySlice.actions.SELECT(event.target.innerText));
+        navigate(url);
+    }
+
     return (
         <>
             <SelectArea>
                 <SelectRow>
-                    <CategoryBlock>분식</CategoryBlock>
-                    <CategoryBlock>일식</CategoryBlock>
-                    <CategoryBlock>양식<br/>아시안</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>분식</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>일식</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>양식<br/>아시안</CategoryBlock>
                 </SelectRow>
                 <SelectRow>
-                    <CategoryBlock>고기</CategoryBlock>
-                    <CategoryBlock>?</CategoryBlock>
-                    <CategoryBlock>한식</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>고기</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>?</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>한식</CategoryBlock>
                 </SelectRow>
                 <SelectRow>
-                    <CategoryBlock>중식</CategoryBlock>
-                    <CategoryBlock>카페<br/>디저트</CategoryBlock>
-                    <CategoryBlock>간편식</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>중식</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>카페<br/>디저트</CategoryBlock>
+                    <CategoryBlock onClick={navigateToNextPage}>간편식</CategoryBlock>
                 </SelectRow>
             </SelectArea>
         </>
