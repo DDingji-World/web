@@ -7,11 +7,14 @@ import {BrowserRouter, Route, Routes} from 'react-router-dom'
 import RestaurantList from './pages/RestaurantList'
 import RestaurantInfo from './pages/RestaurantInfo'
 import GlobalLayout from "./components/GlobalLayout";
+import {ThemeProvider} from "styled-components";
+import theme from "./theme";
 
 
 function App() {
   return (
     <Provider store={store}>
+        <ThemeProvider theme={theme}>
       <BrowserRouter
       // basename={process.env.PUBLIC_URL}
       >
@@ -22,6 +25,7 @@ function App() {
           <Route path="/restaurant/:id" element={<RestaurantInfo />} />
         </Routes>
       </BrowserRouter>
+        </ThemeProvider>
     </Provider>
   )
 }
