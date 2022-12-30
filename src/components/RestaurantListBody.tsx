@@ -9,11 +9,19 @@ const BodyLayout = styled.div`
   margin-top: 20px;
   border-radius: 10px;
   width: 95%;
-  height: 100%;
-  min-height: 600px;
+  min-height: 300px;
   background-color: white;
   font-family: ${({theme}) => theme.font.dongle};;
   margin-bottom: 20px;
+  overflow: auto;
+  -ms-overflow-style: none;
+  scrollbar-width:0px;
+  @media (min-height: 600px){
+    height: 80%;
+  }
+  ::-webkit-scrollbar {
+    display: none;
+  }
 `
 const MarginCollapseBreaker = styled.hr`
   height: 0px;
@@ -55,30 +63,105 @@ export default function RestaurantListBody({_category} : RestaurantListProps):JS
     const [restaurantInfo, setRestaurantInfo] = useState<RestaurantList[]>();
 
     useEffect(() => {
-
         const url = _category.name === "ALL" ? "/restaurant/all" : `/restaurant?category=${_category.name}`;
         axios.get(url)
             .then(res => {
-                alert(JSON.stringify(res.data))
+                // alert(JSON.stringify(res.data))
                 setRestaurantInfo(res.data)
             }).catch(error => {
-                alert(error)
+                // alert(error)
         })
     },[])
-
+    const data = [
+        {
+            name: "엄마손 닭갈비", tags: [
+                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
+            ]
+        }
+        , {
+            name: "모래내 곱창", tags: [
+                {name: "#한식"}, {name: "#JMT"}
+            ]
+        },
+        {
+            name: "돼지주막", tags: [
+                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
+            ]
+        },
+        {
+            name: "영순이네", tags: [
+                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
+            ]
+        },
+        {
+            name: "김밥천국", tags: [
+                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
+            ]
+        },
+        {
+            name: "엄마손 닭갈비", tags: [
+                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
+            ]
+        }
+        , {
+            name: "모래내 곱창", tags: [
+                {name: "#한식"}, {name: "#JMT"}
+            ]
+        },
+        {
+            name: "돼지주막", tags: [
+                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
+            ]
+        },
+        {
+            name: "영순이네", tags: [
+                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
+            ]
+        },
+        {
+            name: "김밥천국", tags: [
+                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
+            ]
+        },
+        {
+            name: "엄마손 닭갈비", tags: [
+                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
+            ]
+        }
+        , {
+            name: "모래내 곱창", tags: [
+                {name: "#한식"}, {name: "#JMT"}
+            ]
+        },
+        {
+            name: "돼지주막", tags: [
+                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
+            ]
+        },
+        {
+            name: "영순이네", tags: [
+                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
+            ]
+        },
+        {
+            name: "김밥천국", tags: [
+                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
+            ]
+        }
+    ]
 
     return <>
         <BodyLayout>
-            {/*{restaurantInfo?.map(r => {*/}
-            {/*    return <RestaurantItem>*/}
-            {/*        <RestaurantItemTitle>{r.name}</RestaurantItemTitle>*/}
-            {/*        <RestaurantItemTags>*/}
-            {/*            {r.tags.map(t => {*/}
-            {/*                return <span>#{t.name}</span>*/}
-            {/*            })}*/}
-            {/*        </RestaurantItemTags>*/}
-            {/*    </RestaurantItem>*/}
-            {/*})}*/}
+            {data?.map(r => {
+                return <RestaurantItem>
+                    <RestaurantItemTitle>{r.name}</RestaurantItemTitle>
+                    <RestaurantItemTags>
+                        {r.tags.map(t => {
+                            return <span>#{t.name}</span>
+                        })}
+                    </RestaurantItemTags>
+                </RestaurantItem>
+            })}
         </BodyLayout>
         <MarginCollapseBreaker/>
     </>
