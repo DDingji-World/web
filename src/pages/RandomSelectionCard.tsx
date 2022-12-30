@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router'
 import styled from 'styled-components'
 import OptionLabel from '../components/OptionLabel'
 import TagButton from '../components/TagButton'
@@ -76,13 +77,13 @@ const NextButton = styled.button`
     cursor: pointer;
   }
 `
+const getLocationCategory = (): string => {
+  const category = useLocation().state?.category as string
+  return category == '?' ? 'ALL' : category
+}
 
 export default function RandomSelectionCard() {
-  const category = {
-    id: 1,
-    name: '간편식',
-    restaurants: [],
-  } as Category
+  const category = getLocationCategory()
 
   const tags = [
     { id: 1, name: '간편식' },
@@ -99,7 +100,7 @@ export default function RandomSelectionCard() {
         <Title>서브웨이</Title>
         <TagsLayout>
           {tags.map((tag) => (
-            <TagButton tag={tag} />
+            <TagButton key={tag.id} tag={tag} />
           ))}
         </TagsLayout>
       </TitleLayout>
