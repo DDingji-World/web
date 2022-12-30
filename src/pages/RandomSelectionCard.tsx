@@ -2,6 +2,7 @@ import styled from 'styled-components'
 import OptionLabel from '../components/OptionLabel'
 import TagButton from '../components/TagButton'
 import Category from '../models/category'
+import Tag from '../models/tag'
 
 const CardLayout = styled.div`
   background-color: ${({ theme }) => theme.color.main};
@@ -81,29 +82,18 @@ export default function RandomSelectionCard() {
     id: 1,
     name: '간편식',
     restaurants: [],
-  }
-  const categories = [
-    category,
-    category,
-    category,
-    category,
-    category,
-    category,
-    category,
-  ] as Category[]
+  } as Category
+
   const tags = [
     { id: 1, name: '간편식' },
     { id: 2, name: '샌드위치' },
     { id: 3, name: '무언가_긴_태그가_있다' },
-  ]
-  const getRandomColor = () =>
-    '#' + Math.floor(Math.random() * 16777215).toString(16)
+  ] as Tag[]
+
   return (
     <CardLayout>
       <OptionLabelsLayout>
-        {categories.map((category) => (
-          <OptionLabel backgroundColor={getRandomColor()} category={category} />
-        ))}
+        {<OptionLabel backgroundColor={'yellow'} category={category} />}
       </OptionLabelsLayout>
       <TitleLayout>
         <Title>서브웨이</Title>
