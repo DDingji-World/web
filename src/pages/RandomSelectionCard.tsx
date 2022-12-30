@@ -77,18 +77,19 @@ const NextButton = styled.button`
     cursor: pointer;
   }
 `
-const getLocationCategory = (): string => {
-  const category = useLocation().state?.category as string
-  return category == '?' ? 'ALL' : category
+const getLocationCategory = (): Category => {
+  const category = useLocation().state?.category as Category
+  if (category.name == '?' || !category.name) return {name: "ALL"} as Category
+  return category
 }
 
 export default function RandomSelectionCard() {
   const category = getLocationCategory()
 
   const tags = [
-    { id: 1, name: '간편식' },
-    { id: 2, name: '샌드위치' },
-    { id: 3, name: '무언가_긴_태그가_있다' },
+    { name: '간편식' },
+    { name: '샌드위치' },
+    { name: '무언가_긴_태그가_있다' },
   ] as Tag[]
 
   return (
@@ -100,7 +101,7 @@ export default function RandomSelectionCard() {
         <Title>서브웨이</Title>
         <TagsLayout>
           {tags.map((tag) => (
-            <TagButton key={tag.id} tag={tag} />
+            <TagButton key={tag.name} tag={tag} />
           ))}
         </TagsLayout>
       </TitleLayout>

@@ -3,6 +3,7 @@ import {useNavigate} from "react-router-dom";
 import {useModeSelector} from "../store/mode";
 import {useDispatch} from "react-redux";
 import {categorySlice} from "../store/category";
+import Category from '../models/category';
 
 const SelectArea = styled.div`
   width: 95%;
@@ -122,7 +123,7 @@ export default function CategoryArea():JSX.Element{
         const url = mode ? "/random-selection-card" : "/restaurant/list";
         navigate(url, {
             state :{
-                category : event.target.innerText
+                category : {name: event.target.innerText} as Category
             }
         });
     }
