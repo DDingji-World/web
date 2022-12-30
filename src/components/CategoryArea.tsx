@@ -3,10 +3,11 @@ import {useNavigate} from "react-router-dom";
 import {useModeSelector} from "../store/mode";
 import {useDispatch} from "react-redux";
 import {categorySlice} from "../store/category";
+import Category from '../models/category';
 
 const SelectArea = styled.div`
   width: 95%;
-  height: 437px;
+  height: 50%;
   display: flex;
   background-color: white;
   margin: 0 auto;
@@ -117,12 +118,14 @@ const CategoryBlock = styled.div`
 export default function CategoryArea():JSX.Element{
     const navigate = useNavigate();
     const mode = useModeSelector();
-    const dispatch = useDispatch();
 
     const navigateToNextPage = (event:any) => {
         const url = mode ? "/random-selection-card" : "/restaurant/list";
-        dispatch(categorySlice.actions.SELECT(event.target.innerText));
-        navigate(url);
+        navigate(url, {
+            state :{
+                category : {name: event.target.innerText} as Category
+            }
+        });
     }
 
     return (

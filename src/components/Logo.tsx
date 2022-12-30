@@ -9,6 +9,8 @@ const FlexCenterDiv = styled.div`
 const CompanyLogo = styled.img.attrs({
     src: `${logo}`
 })`
+  height: 20%;
+  width: 40%;
   margin: 0 auto;
   margin-top: 20px;
   border-radius: 100px;

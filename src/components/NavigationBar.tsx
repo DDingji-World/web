@@ -6,7 +6,7 @@ import {modeSlice, useModeSelector} from "../store/mode";
 import theme from "../theme";
 
 const NavBar = styled.div`
-  width: 500px;
+  width: 100%;
   height: 75px;
   background-color: ${({theme}) => theme.color.sub};
   bottom: 0px;
@@ -17,8 +17,8 @@ const NavBar = styled.div`
   @media (max-width: 500px) {
     width: 100%;
   }
-  @media(max-height: 800px){
-    margin-top: 47px;
+  @media(max-height: 600px){
+    margin-top: 55px;
     position: static;
   }
 `
