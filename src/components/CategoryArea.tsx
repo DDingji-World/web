@@ -117,12 +117,14 @@ const CategoryBlock = styled.div`
 export default function CategoryArea():JSX.Element{
     const navigate = useNavigate();
     const mode = useModeSelector();
-    const dispatch = useDispatch();
 
     const navigateToNextPage = (event:any) => {
         const url = mode ? "/random-selection-card" : "/restaurant/list";
-        dispatch(categorySlice.actions.SELECT(event.target.innerText));
-        navigate(url);
+        navigate(url, {
+            state :{
+                category : event.target.innerText
+            }
+        });
     }
 
     return (
