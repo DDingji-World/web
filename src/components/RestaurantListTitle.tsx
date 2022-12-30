@@ -3,6 +3,9 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft, faShuffle} from "@fortawesome/free-solid-svg-icons";
 import {useCategorySelector} from "../store/category";
 import {useNavigate} from "react-router-dom";
+import {useEffect, useState} from "react";
+import {useLocation} from "react-router";
+import Category from "../models/category";
 
 const TitleLayout = styled.div`
   display: flex;
@@ -45,20 +48,29 @@ const MarginCollapseBreaker = styled.hr`
   background-color: ${({theme}) => theme.color.main};;
   color: ${({theme}) => theme.color.main};;
 `
+type RestaurantListProps = {
+    _category : Category
+}
+export default function RestaurantListTitle({_category} : RestaurantListProps) {
 
-export default function RestaurantListTitle() {
+    const navigate = useNavigate();
 
-    const category = useCategorySelector();
+    const moveToMainPage = () => {
+        navigate("/", {replace:true});
+    }
+    const moveToRandomSelectPage = () => {
+        navigate("/random-selection-card", {replace:true});
+    }
 
     return <>
         <MarginCollapseBreaker/>
         <TitleLayout>
             <BackspaceIcon >
-                <FontAwesomeIcon icon={faArrowLeft}/>
+                <FontAwesomeIcon onClick={moveToMainPage} icon={faArrowLeft}/>
             </BackspaceIcon>
-            <Title>{category === "?" ? "전체" : category}</Title>
+            <Title>{_category.name === "?" ? "전체" : _category.name}</Title>
             <RandomSelectIcon>
-                <FontAwesomeIcon icon={faShuffle}/>
+                <FontAwesomeIcon onClick={moveToRandomSelectPage} icon={faShuffle}/>
             </RandomSelectIcon>
         </TitleLayout>
     </>

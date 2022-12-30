@@ -4,21 +4,20 @@
   font-family: "Noto Sans KR";
   font-style: normal;
   font-weight: 400;
-  src: url("https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-400.woff2")
-  format("woff2"),
-  url("https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-400.woff")
-  format("woff");
+  src: url('https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-400.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-400.woff')
+      format('woff');
 }
 @font-face {
-  font-family: "Noto Sans KR";
+  font-family: 'Noto Sans KR';
   font-style: normal;
   font-weight: 700;
-  src: url("https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-700.woff2")
-  format("woff2"),
-  url("https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-700.woff")
-  format("woff");
+  src: url('https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-700.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/npm/@openfonts/noto-sans-kr_korean@1.44.1/files/noto-sans-kr-korean-700.woff')
+      format('woff');
 }
-
 *,
 ::before,
 ::after {
@@ -31,7 +30,7 @@
 }
 .cf:after {
   display: block;
-  content: "";
+  content: '';
   clear: both;
 }
 html {
@@ -81,9 +80,9 @@ textarea {
   font-size: 13px;
   line-height: 1.5;
   color: #101010;
-  font-family: "Noto Sans KR", -apple-system, BlinkMacSystemFont,
-  "Malgun Gothic", "맑은 고딕", helvetica, "Apple SD Gothic Neo", arial, dotum,
-  돋움, sans-serif;
+  font-family: 'Noto Sans KR', -apple-system, BlinkMacSystemFont,
+    'Malgun Gothic', '맑은 고딕', helvetica, 'Apple SD Gothic Neo', arial, dotum,
+    돋움, sans-serif;
 }
 h1,
 h2,
@@ -182,8 +181,8 @@ svg:not([fill]) {
 svg:not(:root) {
   overflow: hidden;
 }
-img[src$=".gif"],
-img[src$=".png"] {
+img[src$='.gif'],
+img[src$='.png'] {
   image-rendering: -moz-crisp-edges;
   image-rendering: -o-crisp-edges;
   image-rendering: -webkit-optimize-contrast;
@@ -211,9 +210,9 @@ input:focus {
   outline: none;
 }
 button,
-[type="button"],
-[type="reset"],
-[type="submit"] {
+[type='button'],
+[type='reset'],
+[type='submit'] {
   -webkit-appearance: button;
 }
 figure {
@@ -243,11 +242,11 @@ textarea {
   overflow: auto;
   resize: vertical;
 }
-[type="checkbox"],
-[type="radio"] {
+[type='checkbox'],
+[type='radio'] {
   padding: 0;
 }
-[type="search"] {
+[type='search'] {
   -webkit-appearance: textfield;
   outline-offset: -2px;
 }
@@ -314,20 +313,20 @@ textarea,
 [hidden] {
   display: none;
 }
-[aria-busy="true"] {
+[aria-busy='true'] {
   cursor: progress;
 }
 [aria-controls] {
   cursor: pointer;
 }
-[aria-disabled="true"],
+[aria-disabled='true'],
 [disabled] {
   cursor: not-allowed;
 }
-[aria-hidden="false"][hidden] {
+[aria-hidden='false'][hidden] {
   display: initial;
 }
-[aria-hidden="false"][hidden]:not(:focus) {
+[aria-hidden='false'][hidden]:not(:focus) {
   clip: rect(0, 0, 0, 0);
   position: absolute;
 }
