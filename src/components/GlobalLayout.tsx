@@ -16,6 +16,7 @@ const GlobalBody = styled.div`
 
   @media (max-width: 500px) {
     width: 100%;
+    height: 100vh;
   }
 `
 const GlobalBackground = styled.div`
@@ -30,6 +31,5 @@ export default function GlobalLayout({
       <GlobalBackground>
         <GlobalBody>{children}</GlobalBody>
       </GlobalBackground>
-    </>
-  )
+    </>)
 }
