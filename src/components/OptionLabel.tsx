@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import Category from '../models/category'
 
 const OptionLabelLayout = styled.button<{ backgroundColor: string }>`
   background-color: ${(props) => props.backgroundColor};
@@ -12,7 +13,7 @@ const OptionLabelLayout = styled.button<{ backgroundColor: string }>`
 
 interface OptionLabelProp {
   backgroundColor: string
-  category: string
+  category: Category
 }
 
 export default function OptionLabel({
@@ -21,7 +22,7 @@ export default function OptionLabel({
 }: OptionLabelProp) {
   return (
     <OptionLabelLayout backgroundColor={backgroundColor}>
-      {category}
+      {category.name}
     </OptionLabelLayout>
   )
 }
