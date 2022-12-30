@@ -6,7 +6,7 @@ import {categorySlice} from "../store/category";
 
 const SelectArea = styled.div`
   width: 95%;
-  height: 437px;
+  height: 50%;
   display: flex;
   background-color: white;
   margin: 0 auto;
