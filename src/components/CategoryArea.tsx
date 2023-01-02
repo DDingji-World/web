@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import {useNavigate} from "react-router-dom";
 import {useModeSelector} from "../store/mode";
-import {useDispatch} from "react-redux";
-import {categorySlice} from "../store/category";
 import Category from '../models/category';
 
 const SelectArea = styled.div`
