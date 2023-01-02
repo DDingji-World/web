@@ -1,8 +1,11 @@
+import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import styled from 'styled-components'
+import { restaurantApi } from '../api/restaurantAPI'
 import OptionLabel from '../components/OptionLabel'
 import TagButton from '../components/TagButton'
 import Category from '../models/category'
+import Restaurant from '../models/restaurant'
 import Tag from '../models/tag'
 
 const CardLayout = styled.div`
@@ -77,14 +80,47 @@ const NextButton = styled.button`
     cursor: pointer;
   }
 `
+
 const getLocationCategory = (): Category => {
   const category = useLocation().state?.category as Category
-  if (category.name == '?' || !category.name) return {name: "ALL"} as Category
+  if (category.name == '?' || !category.name) return { name: 'ALL' } as Category
+  if (category.name == '양식\n아시안')
+    return { name: '양식/아시안' } as Category
+  if (category.name == '카페\n디저트')
+    return { name: '카페/디저트' } as Category
   return category
 }
 
 export default function RandomSelectionCard() {
   const category = getLocationCategory()
+  const [selectRandomRestaurantByCategory, mutationByCategoryResult] =
+    restaurantApi.useSelectRandomRestaurantByCategoryMutation()
+  const [selectRandomRestaurant, mutationResult] =
+    restaurantApi.useSelectRandomRestaurantMutation()
+  const [restaurant, setRestaurant] = useState<Restaurant>({
+    name: '',
+    categories: [],
+    tags: [],
+    url: '',
+    x: '',
+    y: '',
+  })
+
+  const loadData = () => {
+    category.name == 'ALL'
+      ? selectRandomRestaurant()
+      : selectRandomRestaurantByCategory(category)
+  }
+
+  useEffect(loadData, [])
+
+  useEffect(() => {
+    const data =
+      category.name == 'ALL'
+        ? mutationResult.data
+        : mutationByCategoryResult.data
+    setRestaurant((before) => ({ ...before, ...data }))
+  }, [mutationByCategoryResult.isLoading, mutationResult.isLoading])
 
   const tags = [
     { name: '간편식' },
@@ -98,7 +134,7 @@ export default function RandomSelectionCard() {
         {<OptionLabel backgroundColor={'yellow'} category={category} />}
       </OptionLabelsLayout>
       <TitleLayout>
-        <Title>서브웨이</Title>
+        <Title>{restaurant.name}</Title>
         <TagsLayout>
           {tags.map((tag) => (
             <TagButton key={tag.name} tag={tag} />
@@ -107,7 +143,7 @@ export default function RandomSelectionCard() {
       </TitleLayout>
       <Map></Map>
       <NextButtonLayout>
-        <NextButton>다음</NextButton>
+        <NextButton onClick={loadData}>다음</NextButton>
       </NextButtonLayout>
     </CardLayout>
   )
