@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { useLocation } from 'react-router'
 import styled from 'styled-components'
 import { restaurantApi } from '../api/restaurantAPI'
+import KakaoMap from '../components/KakaoMap'
 import OptionLabel from '../components/OptionLabel'
 import TagButton from '../components/TagButton'
 import Category from '../models/category'
@@ -90,7 +91,11 @@ const getLocationCategory = (): Category => {
     return { name: '카페/디저트' } as Category
   return category
 }
-
+declare global {
+  interface Window {
+    kakao: any
+  }
+}
 export default function RandomSelectionCard() {
   const category = getLocationCategory()
   const [selectRandomRestaurantByCategory, mutationByCategoryResult] =
@@ -112,6 +117,18 @@ export default function RandomSelectionCard() {
       : selectRandomRestaurantByCategory(category)
   }
 
+  const [isLoading, setIsLoading] = useState<boolean>(true)
+
+  useEffect(() => {
+    switch (category.name) {
+      case 'ALL':
+        setIsLoading(mutationResult.isLoading)
+        break
+      default:
+        setIsLoading(mutationByCategoryResult.isLoading)
+        break
+    }
+  }, [mutationResult, mutationByCategoryResult])
   useEffect(loadData, [])
 
   useEffect(() => {
@@ -121,14 +138,14 @@ export default function RandomSelectionCard() {
         : mutationByCategoryResult.data
     setRestaurant((before) => ({ ...before, ...data }))
   }, [mutationByCategoryResult.isLoading, mutationResult.isLoading])
-
   const tags = [
     { name: '간편식' },
     { name: '샌드위치' },
     { name: '무언가_긴_태그가_있다' },
   ] as Tag[]
-
-  return (
+  return isLoading ? (
+    <CardLayout />
+  ) : (
     <CardLayout>
       <OptionLabelsLayout>
         {<OptionLabel backgroundColor={'yellow'} category={category} />}
@@ -141,7 +158,10 @@ export default function RandomSelectionCard() {
           ))}
         </TagsLayout>
       </TitleLayout>
-      <Map></Map>
+      <KakaoMap
+        x={Number.parseFloat(restaurant.x)}
+        y={Number.parseFloat(restaurant.y)}
+      />
       <NextButtonLayout>
         <NextButton onClick={loadData}>다음</NextButton>
       </NextButtonLayout>
