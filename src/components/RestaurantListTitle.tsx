@@ -25,7 +25,8 @@ const Title = styled.div`
 `
 const BackspaceIcon = styled.div`
   margin-left: 20px;
-  :hover{
+
+  :hover {
     cursor: pointer;
     font-size: 25px;
     transition: all 0.5s;
@@ -33,7 +34,8 @@ const BackspaceIcon = styled.div`
 `
 const RandomSelectIcon = styled.div`
   margin-right: 20px;
-  :hover{
+
+  :hover {
     cursor: pointer;
     font-size: 25px;
     transition: all 0.5s;
@@ -49,26 +51,32 @@ const MarginCollapseBreaker = styled.hr`
   color: ${({theme}) => theme.color.main};;
 `
 type RestaurantListProps = {
-    _category : Category
+    category: Category
 }
-export default function RestaurantListTitle({_category} : RestaurantListProps) {
+export default function RestaurantListTitle({category}: RestaurantListProps) {
 
     const navigate = useNavigate();
 
     const moveToMainPage = () => {
-        navigate("/", {replace:true});
+        navigate("/", {replace: true});
     }
     const moveToRandomSelectPage = () => {
-        navigate("/random-selection-card", {replace:true});
+        navigate("/random-selection-card",
+            {
+                replace: true,
+                state: {
+                    category
+                }
+            });
     }
 
     return <>
         <MarginCollapseBreaker/>
         <TitleLayout>
-            <BackspaceIcon >
+            <BackspaceIcon>
                 <FontAwesomeIcon onClick={moveToMainPage} icon={faArrowLeft}/>
             </BackspaceIcon>
-            <Title>{_category.name === "?" ? "전체" : _category.name}</Title>
+            <Title>{category.name === "?" ? "전체" : category.name}</Title>
             <RandomSelectIcon>
                 <FontAwesomeIcon onClick={moveToRandomSelectPage} icon={faShuffle}/>
             </RandomSelectIcon>
