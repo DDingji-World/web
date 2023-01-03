@@ -17,7 +17,7 @@ export default function RestaurantList() {
   const category = getLocationCategory()
 
   return <>
-    <RestaurantListTitle _category={category}/>
+    <RestaurantListTitle category={category}/>
     <RestaurantListBody _category={category}/>
   </>
 }
