@@ -3,6 +3,7 @@ import axios from "axios";
 import {useEffect, useState} from "react";
 import Category from "../models/category";
 import RestaurantList from "../models/restaurantList";
+import {useNavigate} from "react-router-dom";
 
 const BodyLayout = styled.div`
   margin: 0 auto;
@@ -61,99 +62,32 @@ type RestaurantListProps = {
 export default function RestaurantListBody({_category} : RestaurantListProps):JSX.Element {
 
     const [restaurantInfo, setRestaurantInfo] = useState<RestaurantList[]>();
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const url = _category.name === "ALL" ? "/restaurant/all" : `/restaurant?category=${_category.name}`;
+        const url = _category.name === "ALL" ? "/restaurants" : `/restaurant?category=${_category.name}`;
         axios.get(url)
             .then(res => {
-                // alert(JSON.stringify(res.data))
                 setRestaurantInfo(res.data)
             }).catch(error => {
-                // alert(error)
+                alert(error)
         })
     },[])
-    const data = [
-        {
-            name: "엄마손 닭갈비", tags: [
-                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
-            ]
-        }
-        , {
-            name: "모래내 곱창", tags: [
-                {name: "#한식"}, {name: "#JMT"}
-            ]
-        },
-        {
-            name: "돼지주막", tags: [
-                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
-            ]
-        },
-        {
-            name: "영순이네", tags: [
-                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
-            ]
-        },
-        {
-            name: "김밥천국", tags: [
-                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
-            ]
-        },
-        {
-            name: "엄마손 닭갈비", tags: [
-                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
-            ]
-        }
-        , {
-            name: "모래내 곱창", tags: [
-                {name: "#한식"}, {name: "#JMT"}
-            ]
-        },
-        {
-            name: "돼지주막", tags: [
-                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
-            ]
-        },
-        {
-            name: "영순이네", tags: [
-                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
-            ]
-        },
-        {
-            name: "김밥천국", tags: [
-                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
-            ]
-        },
-        {
-            name: "엄마손 닭갈비", tags: [
-                {name: "#한식"}, {name: "#치킨조아"}, {name: "#응용 회식"}, {name: "#김정호 교수님 원픽"}
-            ]
-        }
-        , {
-            name: "모래내 곱창", tags: [
-                {name: "#한식"}, {name: "#JMT"}
-            ]
-        },
-        {
-            name: "돼지주막", tags: [
-                {name: "#한식"}, {name: "#백반"}, {name: "#7000원"}, {name: "#3대 남자음식"}
-            ]
-        },
-        {
-            name: "영순이네", tags: [
-                {name: "#한식"}, {name: "#닭볶음탕"}, {name: "#안주"}
-            ]
-        },
-        {
-            name: "김밥천국", tags: [
-                {name: "#한식"}, {name: "#김밥"}, {name: "#비빔밥"}, {name: "#5000원"}
-            ]
-        }
-    ]
-
+    const moveToDetailPage = (url : string):any => {
+        alert(url);
+        navigate("/restaurant/:id",{
+            replace : true,
+            state : {
+                url
+            }
+        })
+    }
     return <>
         <BodyLayout>
-            {data?.map(r => {
-                return <RestaurantItem>
+            {restaurantInfo?.map(r => {
+                return <RestaurantItem onClick={() => {
+                    return moveToDetailPage(r.url);
+                }}>
                     <RestaurantItemTitle>{r.name}</RestaurantItemTitle>
                     <RestaurantItemTags>
                         {r.tags.map(t => {
