@@ -4,20 +4,13 @@ import Restaurant from '../models/restaurant'
 
 export const restaurantApi = createApi({
   reducerPath: 'restaurantApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://3.36.253.255:8080' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
   endpoints: (builder) => ({
-    selectRandomRestaurantByCategory: builder.mutation<Restaurant, Category>({
+    getRestaurants: builder.query<Restaurant[], Category>({
       query: (category) => ({
-        url: `restaurant`,
-        method: 'POST',
+        url: `/restaurants`,
+        method: 'GET',
         params: { category: category.name },
-      }),
-    }),
-
-    selectRandomRestaurant: builder.mutation<Restaurant, void>({
-      query: () => ({
-        url: `restaurant/all`,
-        method: 'POST',
       }),
     }),
   }),

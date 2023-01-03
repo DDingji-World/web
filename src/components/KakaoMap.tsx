@@ -25,6 +25,6 @@ export default function KakaoMap({ x, y }: KakaoMapProps) {
     new kakao.maps.Marker({
       position: markerPosition,
     }).setMap(map)
-  }, [])
+  }, [x, y])
   return <Map id="map" />
 }

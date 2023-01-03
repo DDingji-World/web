@@ -1,7 +1,7 @@
-import styled from "styled-components";
-import {useNavigate} from "react-router-dom";
-import {useModeSelector} from "../store/mode";
-import Category from '../models/category';
+import styled from 'styled-components'
+import { useNavigate } from 'react-router-dom'
+import { useModeSelector } from '../store/mode'
+import Category from '../models/category'
 
 const SelectArea = styled.div`
   width: 95%;
@@ -15,7 +15,7 @@ const SelectArea = styled.div`
 
   > div:nth-child(odd) {
     > div:nth-child(odd) {
-      background-color: ${({theme}) => theme.color.categoryOddBlock};;
+      background-color: ${({ theme }) => theme.color.categoryOddBlock};
     }
   }
 
@@ -25,18 +25,19 @@ const SelectArea = styled.div`
     height: 34%;
 
     > div:nth-child(2) {
-      background-color: ${({theme}) => theme.color.categoryOddBlock};;
-      font-size: 90px;
+      background-color: ${({ theme }) => theme.color.categoryOddBlock};
+      font-size: 5rem;
 
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredOddCategoryBlock};;
+        background-color: ${({ theme }) => theme.color.hoveredOddCategoryBlock};
         transition: all 0.5s;
       }
     }
 
     > div:nth-child(odd) {
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredEvenCategoryBlock};;
+        background-color: ${({ theme }) =>
+          theme.color.hoveredEvenCategoryBlock};
         transition: all 0.5s;
       }
     }
@@ -53,14 +54,15 @@ const SelectArea = styled.div`
       border-radius: 10px 10px 0px 0px;
 
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredOddCategoryBlock};;
+        background-color: ${({ theme }) => theme.color.hoveredOddCategoryBlock};
         transition: all 0.5s;
       }
     }
 
     > div:nth-child(even) {
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredEvenCategoryBlock};;
+        background-color: ${({ theme }) =>
+          theme.color.hoveredEvenCategoryBlock};
         transition: all 0.5s;
       }
     }
@@ -73,14 +75,15 @@ const SelectArea = styled.div`
       border-radius: 0px 0px 10px 10px;
 
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredOddCategoryBlock};;
+        background-color: ${({ theme }) => theme.color.hoveredOddCategoryBlock};
         transition: all 0.5s;
       }
     }
 
     > div:nth-child(even) {
       :hover {
-        background-color: ${({theme}) => theme.color.hoveredEvenCategoryBlock};;
+        background-color: ${({ theme }) =>
+          theme.color.hoveredEvenCategoryBlock};
         transition: all 0.5s;
       }
     }
@@ -99,10 +102,11 @@ const SelectRow = styled.div`
 
 const CategoryBlock = styled.div`
   display: flex;
+  flex-direction: column;
   text-align: center;
   justify-content: center;
   align-items: center;
-  font-size: 40px;
+  font-size: 2.5rem;
   font-weight: 400;
   font-family: 'Dongle', sans-serif;
   width: 33%;
@@ -112,39 +116,46 @@ const CategoryBlock = styled.div`
     cursor: pointer;
   }
 `
+const categoryRows = [
+  [{ name: '한식' }, { name: '분식' }, { name: '양식/아시안' }],
+  [{ name: '고기' }, { name: 'ALL' }, { name: '중식' }],
+  [{ name: '일식' }, { name: '간편식' }, { name: '카페/디저트' }],
+]
 
-export default function CategoryArea():JSX.Element{
-    const navigate = useNavigate();
-    const mode = useModeSelector();
+const getEachNames = (name: string) => {
+  if (name.includes('/')) {
+    const indexOf = name.indexOf('/')
+    return [name.substring(0, indexOf), name.substring(indexOf + 1)]
+  }
+  return [name]
+}
 
-    const navigateToNextPage = (event:any) => {
-        const url = mode ? "/random-selection-card" : "/restaurant/list";
-        navigate(url, {
-            state :{
-                category : {name: event.target.innerText} as Category
-            }
-        });
-    }
+export default function CategoryArea(): JSX.Element {
+  const navigate = useNavigate()
+  const mode = useModeSelector()
 
-    return (
-        <>
-            <SelectArea>
-                <SelectRow>
-                    <CategoryBlock onClick={navigateToNextPage}>분식</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>일식</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>양식<br/>아시안</CategoryBlock>
-                </SelectRow>
-                <SelectRow>
-                    <CategoryBlock onClick={navigateToNextPage}>고기</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>?</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>한식</CategoryBlock>
-                </SelectRow>
-                <SelectRow>
-                    <CategoryBlock onClick={navigateToNextPage}>중식</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>카페<br/>디저트</CategoryBlock>
-                    <CategoryBlock onClick={navigateToNextPage}>간편식</CategoryBlock>
-                </SelectRow>
-            </SelectArea>
-        </>
-    )
+  const navigateToNextPage = (name: string) => () => {
+    const url = mode ? '/random-selection-card' : '/restaurant/list'
+    navigate(url, {
+      state: {
+        category: { name } as Category,
+      },
+    })
+  }
+
+  return (
+    <SelectArea>
+      {categoryRows.map((row) => (
+        <SelectRow>
+          {row.map((category) => (
+            <CategoryBlock onClick={navigateToNextPage(category.name)}>
+              {getEachNames(category.name).map((name) => (
+                <span>{name}</span>
+              ))}
+            </CategoryBlock>
+          ))}
+        </SelectRow>
+      ))}
+    </SelectArea>
+  )
 }
