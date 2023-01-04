@@ -55,7 +55,7 @@ const RestaurantItemTags = styled.div`
     margin-right: 5px;
   }
 `
-type RestaurantListProps = {
+interface RestaurantListProps  {
     _category : Category
 }
 
@@ -74,15 +74,17 @@ export default function RestaurantListBody({_category} : RestaurantListProps):JS
         })
     },[])
     const moveToDetailPage = (id : number):any => {
-        navigate(`/restaurant/${id}`,{
-            replace : true,
+        navigate(`/restaurant/${id}`, {
+            state : {
+                category : _category
+            }
         })
     }
     return <>
         <BodyLayout>
             {restaurantInfo?.map(r => {
                 return <RestaurantItem onClick={() => {
-                    return moveToDetailPage(r.id);
+                     moveToDetailPage(r.id);
                 }}>
                     <RestaurantItemTitle>{r.name}</RestaurantItemTitle>
                     <RestaurantItemTags>
