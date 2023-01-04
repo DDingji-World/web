@@ -4,7 +4,9 @@ import Restaurant from '../models/restaurant'
 
 export const restaurantApi = createApi({
   reducerPath: 'restaurantApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:8080' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: import.meta.env.VITE_RESTAURANT_SERVER_URL,
+  }),
   endpoints: (builder) => ({
     getRestaurants: builder.query<Restaurant[], Category | void>({
       query: (category?) => ({
