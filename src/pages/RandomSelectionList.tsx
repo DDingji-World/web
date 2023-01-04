@@ -37,7 +37,7 @@ export default function RandomSelectionList() {
     [] as Restaurant[]
   )
   const [selectedIndex, setSelectedIndex] = useState<number>(0)
-  const query = restaurantApi.useGetRestaurantsQuery(category)
+  const query = restaurantApi.useGetRestaurantsQuery(category.name == 'ALL' ? undefined : category)
 
   useEffect(() => {
     const data = query.data
