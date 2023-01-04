@@ -58,6 +58,15 @@ export default function RandomSelectionList() {
   const onExitButtonClicked = () => {
     navigate("/")
   }
+  const onTitleButtonClicked = (id:number, category : Category) => {
+    // alert(id)
+    navigate(`/restaurant/${id}`, {
+      state : {
+        category
+      }
+    })
+  }
+
 
   return (
     <RandomSelectionCard
@@ -65,6 +74,7 @@ export default function RandomSelectionList() {
       categories={[category]}
       onNextButtonClicked={onNextButtonClicked}
       onExitButtonClicked={onExitButtonClicked}
+      onTitleButtonClicked={onTitleButtonClicked}
     />
   )
 }
