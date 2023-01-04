@@ -9,6 +9,7 @@ import Restaurant from "../models/restaurant";
 import RestaurantTitleArea from "../components/RestaurantTitleArea";
 import Category from "../models/category";
 import {useNavigate} from "react-router-dom";
+import {restaurantApi} from "../api/restaurantAPI";
 
 
 const MapTitleLayout  = styled.div`
@@ -21,17 +22,17 @@ export default function RestaurantInfo() {
     const [data, setData] = useState<Restaurant>({} as Restaurant);
     const [loading, setLoading] = useState(true);
 
+    const index = location.pathname.lastIndexOf('/')
+    const id = location.pathname.substring(index + 1)
+    const query = restaurantApi.useGetRestaurantDetailQuery(Number.parseInt(id));
+
     useEffect(() => {
         setLoading(true);
-        const index = location.pathname.lastIndexOf('/')
-        const id = location.pathname.substring(index + 1)
-        axios.get(`/restaurants/${id}`)
-            .then(res => {
-                setData(res.data);
-            }).catch(err => console.log(err))
-
+        const queryData =  query.data
+        if(queryData !== undefined)
+            setData(queryData)
         setLoading(false);
-    }, [])
+    }, [query.isLoading])
 
     const onExitButtonClicked = () => {
         navigate("/");
