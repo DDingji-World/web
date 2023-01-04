@@ -65,7 +65,7 @@ export default function RestaurantListBody({_category} : RestaurantListProps):JS
     const navigate = useNavigate();
 
     useEffect(() => {
-        const url = _category.name === "ALL" ? "/restaurants" : `/restaurant?category=${_category.name}`;
+        const url = _category.name === "ALL" ? "/restaurants" : `/restaurants?category=${_category.name}`;
         axios.get(url)
             .then(res => {
                 setRestaurantInfo(res.data)
@@ -73,20 +73,16 @@ export default function RestaurantListBody({_category} : RestaurantListProps):JS
                 alert(error)
         })
     },[])
-    const moveToDetailPage = (url : string):any => {
-        alert(url);
-        navigate("/restaurant/:id",{
+    const moveToDetailPage = (id : number):any => {
+        navigate(`/restaurant/${id}`,{
             replace : true,
-            state : {
-                url
-            }
         })
     }
     return <>
         <BodyLayout>
             {restaurantInfo?.map(r => {
                 return <RestaurantItem onClick={() => {
-                    return moveToDetailPage(r.url);
+                    return moveToDetailPage(r.id);
                 }}>
                     <RestaurantItemTitle>{r.name}</RestaurantItemTitle>
                     <RestaurantItemTags>
