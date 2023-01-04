@@ -59,7 +59,6 @@ export default function RandomSelectionList() {
     navigate("/")
   }
   const onTitleButtonClicked = (id:number, category : Category) => {
-    // alert(id)
     navigate(`/restaurant/${id}`, {
       state : {
         category

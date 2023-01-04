@@ -4,6 +4,8 @@ import {useEffect, useState} from "react";
 import Category from "../models/category";
 import RestaurantList from "../models/restaurantList";
 import {useNavigate} from "react-router-dom";
+import {restaurantApi} from "../api/restaurantAPI";
+import Restaurant from "../models/restaurant";
 
 const BodyLayout = styled.div`
   margin: 0 auto;
@@ -61,18 +63,17 @@ interface RestaurantListProps  {
 
 export default function RestaurantListBody({_category} : RestaurantListProps):JSX.Element {
 
-    const [restaurantInfo, setRestaurantInfo] = useState<RestaurantList[]>();
+    const [restaurants, setRestaurants] = useState<Restaurant[]>(
+        [] as Restaurant[]
+    )
     const navigate = useNavigate();
-
+    const query = restaurantApi.useGetRestaurantsQuery(_category.name == 'ALL' ? undefined : _category)
     useEffect(() => {
-        const url = _category.name === "ALL" ? "/restaurants" : `/restaurants?category=${_category.name}`;
-        axios.get(url)
-            .then(res => {
-                setRestaurantInfo(res.data)
-            }).catch(error => {
-                alert(error)
-        })
-    },[])
+        const data = query.data
+        if (data !== undefined) {
+            setRestaurants(data)
+        }
+    }, [query.isLoading])
     const moveToDetailPage = (id : number):any => {
         navigate(`/restaurant/${id}`, {
             state : {
@@ -82,7 +83,7 @@ export default function RestaurantListBody({_category} : RestaurantListProps):JS
     }
     return <>
         <BodyLayout>
-            {restaurantInfo?.map(r => {
+            {restaurants?.map(r => {
                 return <RestaurantItem onClick={() => {
                      moveToDetailPage(r.id);
                 }}>
